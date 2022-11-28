@@ -2,4 +2,3 @@ PyHive~=0.6.5
 thrift
 sasl
 thrift_sasl
-pyhs2~=0.6.0

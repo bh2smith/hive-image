@@ -4,7 +4,7 @@ from pyhive import hive
 def connect():
     return hive.Connection(
         host="localhost",
-        port=10000,
+        port=9083,
         username="hive",
         # password="hive",
     )

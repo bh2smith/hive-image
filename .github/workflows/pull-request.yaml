@@ -1,0 +1,15 @@
+name: pull request
+on:
+  pull_request:
+  push:
+    branches: [ main ]
+jobs:
+  hive:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: isbang/compose-action@v1.4.1
+        with:
+          compose-file: "./docker-compose.yaml"
+      - name: Test Connection
+        run: docker exec -it hive-server /bin/bash

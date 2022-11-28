@@ -52,7 +52,7 @@ jobs:
         with:
           python-version: '3.10'
       - name: Install System Requirements
-        run: apt-get install -y libsasl2-dev gcc python-dev
+        run: sudo apt-get install -y libsasl2-dev gcc python-dev
       - name: Install Requirements
         run: pip install -r repo/requirements.txt
       - name: Test Client Connection

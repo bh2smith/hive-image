@@ -9,6 +9,7 @@ jobs:
     services:
       namenode:
         image: bde2020/hadoop-namenode:2.0.0-hadoop2.7.4-java8
+        name: namenode
         volumes:
           - ./hdfs/namenode:/hadoop/dfs/name
         env:
@@ -17,6 +18,7 @@ jobs:
           - "50070:50070"
       datanode:
         image: bde2020/hadoop-datanode:2.0.0-hadoop2.7.4-java8
+        name: datanode
         volumes:
           - ./hdfs/datanode:/hadoop/dfs/data
         env:
@@ -25,6 +27,7 @@ jobs:
           - "50075:50075"
       hive-server:
         image: bde2020/hive:2.3.2-postgresql-metastore
+        name: hive-server
         volumes:
           - ./employee:/employee
         env:
@@ -34,6 +37,7 @@ jobs:
           - "10000:10000"
       hive-metastore:
         image: bde2020/hive:2.3.2-postgresql-metastore
+        name: hive-metastore
 #        run: /opt/hive/bin/hive --service metastore
         env:
           SERVICE_PRECONDITION: "namenode:50070 datanode:50075 hive-metastore-postgresql:5432"
@@ -41,6 +45,7 @@ jobs:
           - "9083:9083"
       hive-metastore-postgresql:
         image: bde2020/hive-metastore-postgresql:2.3.0
+        name: hive-metastore-postgresql
         volumes:
           - ./metastore-postgresql/postgresql/data:/var/lib/postgresql/data
     steps:

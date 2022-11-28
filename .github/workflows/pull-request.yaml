@@ -45,6 +45,7 @@ jobs:
           - ${{ github.workspace }}/metastore-postgresql/postgresql/data:/var/lib/postgresql/data
     steps:
       - uses: actions/checkout@v3
+        path: repo
       - name: Setup Python 3.10
         uses: actions/setup-python@v3
         with:

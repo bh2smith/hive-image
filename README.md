@@ -13,3 +13,13 @@ git clone git@github.com:bh2smith/hive-image.git
 cd hive-image
 docker-compose up
 ```
+
+### Test out instance
+
+```sh
+docker exec -it hive-server /bin/bash
+
+$ cd ../employee
+$ hive -f employee_table.hql
+$ hadoop fs -put employee.csv
+```

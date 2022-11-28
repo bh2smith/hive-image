@@ -55,5 +55,7 @@ jobs:
         run: sudo apt-get install -y libsasl2-dev gcc python-dev
       - name: Install Requirements
         run: pip install -r repo/requirements.txt
-      - name: Test Client Connection
-        run: python repo/client.py
+#      - name: Test Client Connection
+#        run: python repo/client.py
+      - name: Try direct connect
+

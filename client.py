@@ -1,3 +1,5 @@
+import time
+
 from pyhive import hive
 
 
@@ -12,5 +14,6 @@ def connect():
 
 
 if __name__ == "__main__":
+    time.sleep(60)
     cur = connect()
     print(cur)

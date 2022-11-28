@@ -41,7 +41,6 @@ jobs:
           - "9083:9083"
       hive-metastore-postgresql:
         image: bde2020/hive-metastore-postgresql:2.3.0
-        name: hive-metastore-postgresql
         volumes:
           - ${{ github.workspace }}/metastore-postgresql/postgresql/data:/var/lib/postgresql/data
     steps:

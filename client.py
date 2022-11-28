@@ -1,5 +1,6 @@
 from pyhive import hive
 
+
 def connect():
     return hive.Connection(
         host="jdbc:postgresql://hive-metastore-postgresql/metastore",

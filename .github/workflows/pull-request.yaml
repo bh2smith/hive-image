@@ -51,9 +51,7 @@ jobs:
         uses: actions/setup-python@v3
         with:
           python-version: '3.10'
-      - name: Change To Repo
-        run: cd repo
       - name: Install Requirements
-        run: pip install -r requirements.txt
+        run: pip install -r repo/requirements.txt
       - name: Test Client Connection
-        run: python client.py
+        run: python repo/client.py

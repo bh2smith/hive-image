@@ -62,3 +62,6 @@ services:
       - ./metastore-postgresql/postgresql/data:/var/lib/postgresql/data
     depends_on:
       - datanode
+    environment:
+      POSTGRES_PASSWORD: hive
+      POSTGRES_USER: hive

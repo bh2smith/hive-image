@@ -34,7 +34,7 @@ jobs:
           - "10000:10000"
       hive-metastore:
         image: bde2020/hive:2.3.2-postgresql-metastore
-#        run: /opt/hive/bin/hive --service metastore
+        cmd: /opt/hive/bin/hive --service metastore
         env:
           SERVICE_PRECONDITION: "namenode:50070 datanode:50075 hive-metastore-postgresql:5432"
         ports:

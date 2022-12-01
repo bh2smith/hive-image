@@ -1,0 +1,60 @@
+name: pull request
+on:
+  pull_request:
+  push:
+    branches: [ main ]
+jobs:
+  hive-cluster:
+    runs-on: ubuntu-latest
+    services:
+      namenode:
+        image: bde2020/hadoop-namenode:2.0.0-hadoop2.7.4-java8
+        volumes:
+          - ${{ github.workspace }}/hdfs/namenode:/hadoop/dfs/name
+        env:
+          CLUSTER_NAME: "hive"
+        ports:
+          - "50070:50070"
+      datanode:
+        image: bde2020/hadoop-datanode:2.0.0-hadoop2.7.4-java8
+        volumes:
+          - ${{ github.workspace }}/hdfs/datanode:/hadoop/dfs/data
+        env:
+          SERVICE_PRECONDITION: "namenode:50070"
+        ports:
+          - "50075:50075"
+      hive-server:
+        image: bde2020/hive:2.3.2-postgresql-metastore
+        volumes:
+          - ${{ github.workspace }}/employee:/employee
+        env:
+          HIVE_CORE_CONF_javax_jdo_option_ConnectionURL: "jdbc:postgresql://hive-metastore/metastore"
+          SERVICE_PRECONDITION: "hive-metastore:9083"
+        ports:
+          - "10000:10000"
+      hive-metastore:
+        image: bde2020/hive:2.3.2-postgresql-metastore
+        cmd: /opt/hive/bin/hive --service metastore
+        env:
+          SERVICE_PRECONDITION: "namenode:50070 datanode:50075 hive-metastore-postgresql:5432"
+        ports:
+          - "9083:9083"
+      hive-metastore-postgresql:
+        image: bde2020/hive-metastore-postgresql:2.3.0
+        volumes:
+          - ${{ github.workspace }}/metastore-postgresql/postgresql/data:/var/lib/postgresql/data
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          path: repo
+      - name: Setup Python 3.10
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.10'
+      - name: Install System Requirements
+        run: sudo apt-get install -y libsasl2-dev gcc python-dev
+      - name: Install Requirements
+        run: pip install -r repo/requirements.txt
+      - name: Test Client Connection
+        run: python repo/client.py
+

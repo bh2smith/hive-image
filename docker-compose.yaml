@@ -56,9 +56,12 @@ services:
       - "9083:9083"
 
   hive-metastore-postgresql:
-    image: bde2020/hive-metastore-postgresql:2.3.0
+    image: postgres:9.6.17-alpine
     container_name: hive-metastore-postgresql
     volumes:
       - ./metastore-postgresql/postgresql/data:/var/lib/postgresql/data
     depends_on:
       - datanode
+    environment:
+      POSTGRES_PASSWORD: hive
+      POSTGRES_USER: hive
